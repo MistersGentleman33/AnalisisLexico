@@ -10,14 +10,14 @@ def leer_archivo(archivo_entrada):  # Lectura del archivo, cada linea la guarda 
 
 def main():
     # Variables Flags
-    archivo_entrada = sys.argv[1]
-    #tabla_simbolos = sys.argv[2]
-    #archivo_errores = sys.argv[3]
+    input_text = sys.argv[1]
+    #symbols_table = sys.argv[2]
+    #errors = sys.argv[3]
 
-    archivo = leer_archivo(archivo_entrada)
-    print("Esta es una prueba de lectura de archivo: \n {} \n".format(archivo))
+    file = leer_archivo(input_text)
+    print("Esta es una prueba de lectura de archivo: \n {} \n".format(file))
 
-    for i in archivo:
+    for i in file:
         print(i)
 
 
@@ -27,9 +27,9 @@ try:
         main()
 
 except ValueError:
-    print("\nArgumentos invalidos: %s" % sys.argv[1])
+    print("\nInvalid Arguments: %s" % sys.argv[1])
 
 except:
-    print("\n[!] Use: python3 " + sys.argv[0] + " <nombre_archivo.c> " + " <nombre_tabla_simbolos> " + "<nombre_archivo_errores>\n")
+    print("\n[!] Use: python3 " + sys.argv[0] + " <code.c> " + " <symbols_table> " + "<errors>\n")
 
 
