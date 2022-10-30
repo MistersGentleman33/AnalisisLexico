@@ -1,9 +1,17 @@
 import sys
+import re
 
 
-def leer_archivo(archivo_entrada):  # Lectura del archivo, cada linea la guarda en una lista
-    with open(archivo_entrada) as archivo:
-        archivo = archivo.readlines()
+def recognize_variables(file):
+    expression = re.compile("(int [a-zA-Z]+ = [0-9]+|float [a-zA-Z]+ = [0-9]+.[0-9]+"
+                            "|double [a-zA-Z]+ = [0-9]+.[0-9]+|char [a-zA-Z]+ = [\"|\'][a-zA-Z]+[\"|\'])")
+
+    print(expression.findall(file))
+
+
+def read_file(input_text):  # Lectura del archivo, cada linea la guarda en una lista
+    with open(input_text) as archivo:
+        archivo = archivo.read()
 
     return archivo
 
@@ -11,15 +19,13 @@ def leer_archivo(archivo_entrada):  # Lectura del archivo, cada linea la guarda 
 def main():
     # Variables Flags
     input_text = sys.argv[1]
-    #symbols_table = sys.argv[2]
-    #errors = sys.argv[3]
+    # symbols_table = sys.argv[2]
+    # errors = sys.argv[3]
 
-    file = leer_archivo(input_text)
+    # Functions
+    file = read_file(input_text)
     print("Esta es una prueba de lectura de archivo: \n {} \n".format(file))
-
-    for i in file:
-        print(i)
-
+    recognize_variables(file)
 
 
 try:
@@ -31,5 +37,3 @@ except ValueError:
 
 except:
     print("\n[!] Use: python3 " + sys.argv[0] + " <code.c> " + " <symbols_table> " + "<errors>\n")
-
-
