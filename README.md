@@ -137,6 +137,6 @@ Genera una ultima impresion de pantalla independiente para indicar el uso del pr
 ## Conclusion
 
 ## Bibliografias
-[Lib subprocess](https://www.simplilearn.com/tutorials/python-tutorial/subprocess-in-python#:~:text=Subprocess%20in%20Python%20is%20a,can%20use%20subprocess%20in%20Python "1")
-[Lib re](https://docs.python.org/3/library/re.html "Lib re")
-[Lib sys](https://www.geeksforgeeks.org/python-sys-module/#:~:text=The%20sys%20module%20in%20Python,interact%20strongly%20with%20the%20interpreter. "Lib sys")
+1. [Lib subprocess](https://www.simplilearn.com/tutorials/python-tutorial/subprocess-in-python#:~:text=Subprocess%20in%20Python%20is%20a,can%20use%20subprocess%20in%20Python "1")
+2. [Lib re](https://docs.python.org/3/library/re.html "Lib re")
+3. [Lib sys](https://www.geeksforgeeks.org/python-sys-module/#:~:text=The%20sys%20module%20in%20Python,interact%20strongly%20with%20the%20interpreter. "Lib sys")
