@@ -60,7 +60,6 @@ Esta funcion sirve para
 def write_table(list_int, list_float, list_double, list_char, table_name):
     with open(table_name, "w") as file:
         file.write("\tComponente Lexico\tLexema\tValor\n")
-    print("hola")
 
     for i in list_int:
         spaces = i.count(" ")
@@ -85,6 +84,7 @@ def recognize_variables(file):
     return expression_int.findall(file), expression_float.findall(file), \
            expression_double.findall(file), expression_char.findall(file)
 ```
+Esta funcion define las expresiones regulares para cada variable dependiendo del tipo de esta misma como se puede observar para el analizador existen variables int, float, double y char.
 #####Def read_file
 ```python
 def read_file(input_text):  # Lectura del archivo, cada linea la guarda en una lista
@@ -93,6 +93,7 @@ def read_file(input_text):  # Lectura del archivo, cada linea la guarda en una l
 
     return archivo
 ```
+Esta funcion lee el archivo y guarda cada linea en una lista, como se observa recibe un archivo y genera otro con este mismo ya analizado.
 #####Def main
 ```python
 def main():
@@ -109,6 +110,7 @@ def main():
     write_table(list_int, list_float, list_double, list_char, table_name)
 
 ```
+Aqui se inicializan todas las variables, input_text y table_name las iguala para recibir cadenas y las demas variables solo las imprime en la tabla del txt.
 #####try:
 ```python
 try:
@@ -121,12 +123,13 @@ except ValueError:
     print("\nInvalid Arguments: %s" % sys.argv[1])
 
 ```
+Genera una impresion de pantalla en caso de un error.
 ##### except
 ```python
 except:
     print("\n[!] Use: python3 " + sys.argv[0] + " <code.c> " + " <name_table>.txt " + "<errors>.txt\n")
 ```
-
+Genera una ultima impresion de pantalla independiente para indicar el uso del programa al momento de su compilacion.
 ## Conclusion
 
 ## Bibliografias
