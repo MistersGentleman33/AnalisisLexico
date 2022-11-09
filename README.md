@@ -33,8 +33,22 @@ El subproceso en Python es un módulo que se utiliza para ejecutar nuevos códig
 
 ## Desarrollo
 - ### Explicacion del codigo
-Primero se 
+Primero se colocan las librerias a utilizar, las cuales ya hemos visto en el punto anterior, 
+**import sys** se utiliza para dar acceso a las variables y manipularlas durante el tiempo de ejecucion del programa.
+**import re** se utiliza para el procesamiento de cadenas y expresiones regulares que mas adelante nos ayudara para el analizador lexico.
+**import subprocess** se utiliza para ejecutar nuevos procesos, en este programa se utiliza en la def pawk para ejecutar python3 y pawk.py como subprocesos
 
+```python
+def pawk(args, i):
+    i = str(i)
+    position = "f[" + i + "]"
+    echo = subprocess.run(["echo", args], check=True, capture_output=True)
+    awk = subprocess.run(["python3", "pawk/pawk.py", "-F", " ", position], input=echo.stdout, capture_output=True)
+    awk_output = awk.stdout.decode("utf-8").strip()
+
+    return awk_output
+
+```
 
 ## Conclusion
 
