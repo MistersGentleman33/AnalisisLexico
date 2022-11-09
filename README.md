@@ -1,10 +1,10 @@
 #  ANALIZADOR LEXICO
-
+[![Analizador](https://sites.google.com/site/compiladoresesilval/home/compiladores/analisis-lexico "Analizador")](https://sites.google.com/site/compiladoresesilval/home/compiladores/analisis-lexico "Analizador")
 # Integrantes:
 ## Sanchez Palafox Manuel
-## 
-## 
-## 
+## Caballero Perdomo Axel Lennyn
+## Acosta Cortes Gerardo Michel
+## Castillo Salgado Edgar Sebastian
 
 
 ## Librerias utilizadas:
