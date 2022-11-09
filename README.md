@@ -32,4 +32,4 @@ El subproceso en Python es un módulo que se utiliza para ejecutar nuevos códig
 ## Conclusion
 
 ## Bibliografias
-git clone https://www.simplilearn.com/tutorials/python-tutorial/subprocess-in-python#:~:text=Subprocess%20in%20Python%20is%20a,can%20use%20subprocess%20in%20Python.
+[Lib subprocess](https://www.simplilearn.com/tutorials/python-tutorial/subprocess-in-python#:~:text=Subprocess%20in%20Python%20is%20a,can%20use%20subprocess%20in%20Python "1")
