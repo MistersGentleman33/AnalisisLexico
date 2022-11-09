@@ -17,7 +17,7 @@
 - ### sys
 El **módulo** sys en Python proporciona varias funciones y variables que se utilizan para manipular diferentes partes del entorno de tiempo de ejecución de Python. Permite operar sobre el intérprete ya que proporciona acceso a las variables y funciones que interactúan fuertemente con el intérprete. Consideremos el siguiente ejemplo.
 
-### re
+- ### re
 Este módulo proporciona operaciones de coincidencia de expresiones regulares similares a las que se encuentran en Perl.
 
 Tanto los patrones como las cadenas que se buscarán pueden ser cadenas Unicode ( str), así como cadenas de 8 bits ( bytes). Sin embargo, las cadenas Unicode y las cadenas de 8 bits no se pueden mezclar: es decir, no puede hacer coincidir una cadena Unicode con un patrón de bytes o viceversa; De manera similar, al solicitar una sustitución, la cadena de reemplazo debe ser del mismo tipo que el patrón y la cadena de búsqueda.
@@ -28,11 +28,12 @@ La solución es usar la notación de cadenas sin procesar de Python para patrone
 
 Es importante tener en cuenta que la mayoría de las operaciones con expresiones regulares están disponibles como funciones y métodos a nivel de módulo en expresiones regulares compiladas . Las funciones son atajos que no requieren que primero compiles un objeto regex, pero pierden algunos parámetros de ajuste.
 
-### subprocess
+- ### subprocess
 El subproceso en Python es un módulo que se utiliza para ejecutar nuevos códigos y aplicaciones mediante la creación de nuevos procesos. Le permite iniciar nuevas aplicaciones directamente desde el programa de Python que está escribiendo actualmente. Entonces, si desea ejecutar programas externos desde un repositorio de git o códigos de programas C o C++ , puede usar el subproceso en Python. También puede obtener códigos de salida y canalizaciones de entrada, salida o error utilizando el subproceso en Python . 
 
 ## Desarrollo
-### Explicacion del codigo
+- ### Explicacion del codigo
+Primero se 
 
 
 ## Conclusion
