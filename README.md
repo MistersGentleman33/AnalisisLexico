@@ -1,5 +1,5 @@
 #  ANALIZADOR LEXICO
-[![Analizador](https://sites.google.com/site/compiladoresesilval/home/compiladores/analisis-lexico "Analizador")](https://sites.google.com/site/compiladoresesilval/home/compiladores/analisis-lexico "Analizador")
+![](https://sites.google.com/site/compiladoresesilval/_/rsrc/1468848842177/home/compiladores/analisis-lexico/AnalizadorLexico.jpg)
 # Integrantes:
 ## Sanchez Palafox Manuel
 ## Caballero Perdomo Axel Lennyn
@@ -32,3 +32,4 @@ El subproceso en Python es un módulo que se utiliza para ejecutar nuevos códig
 ## Conclusion
 
 ## Bibliografias
+git clone https://www.simplilearn.com/tutorials/python-tutorial/subprocess-in-python#:~:text=Subprocess%20in%20Python%20is%20a,can%20use%20subprocess%20in%20Python.
