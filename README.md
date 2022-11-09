@@ -113,14 +113,14 @@ def main():
 
 ```
 Aqui se inicializan todas las variables, input_text y table_name las iguala para recibir cadenas y las demas variables solo las imprime en la tabla del txt.
-###### 
+#### 
 #####try:
 ```python
 try:
     if __name__ == "__main__":
         main()
 ```
-###### 
+##### 
 #####except ValueError:
 ```python
 except ValueError:
