@@ -41,7 +41,7 @@ Primero se colocan las librerias a utilizar, las cuales ya hemos visto en el pun
 ###### 
 **import subprocess** se utiliza para ejecutar nuevos procesos, en este programa se utiliza en la def pawk para ejecutar python3 y pawk.py como subprocesos
 
-##### Def pawk
+###### Def pawk
 ```python
 def pawk(args, i):
     i = str(i)
@@ -54,8 +54,8 @@ def pawk(args, i):
 
 ```
 Esta funcion sirve para
-###### 
-##### Def write_table
+
+###### Def write_table
 ```python
 def write_table(list_int, list_float, list_double, list_char, table_name):
     with open(table_name, "w") as file:
@@ -68,8 +68,8 @@ def write_table(list_int, list_float, list_double, list_char, table_name):
             print(awk_output)
 ```
 Esta funcion da el formato de tabla de tokens, el fwrite es para escribir en el archivo y tiene un contador para llenar la tabla respetando espacios y colocando respectivamente dependiendo si es componente lexico, lexema o valor.
-###### 
-#####Def recognize_variables
+
+###### Def recognize_variables
 ```python
 def recognize_variables(file):   
 
@@ -85,8 +85,8 @@ def recognize_variables(file):
            expression_double.findall(file), expression_char.findall(file)
 ```
 Esta funcion define las expresiones regulares para cada variable dependiendo del tipo de esta misma como se puede observar para el analizador existen variables int, float, double y char.
-###### 
-#####Def read_file
+
+###### Def read_file
 ```python
 def read_file(input_text):  # Lectura del archivo, cada linea la guarda en una lista
     with open(input_text) as archivo:
@@ -95,8 +95,7 @@ def read_file(input_text):  # Lectura del archivo, cada linea la guarda en una l
     return archivo
 ```
 Esta funcion lee el archivo y guarda cada linea en una lista, como se observa recibe un archivo y genera otro con este mismo ya analizado.
-###### 
-#####Def main
+###### Def main
 ```python
 def main():
     # Variables Flags
@@ -113,23 +112,23 @@ def main():
 
 ```
 Aqui se inicializan todas las variables, input_text y table_name las iguala para recibir cadenas y las demas variables solo las imprime en la tabla del txt.
-#### 
-#####try:
+
+###### try:
 ```python
 try:
     if __name__ == "__main__":
         main()
 ```
-##### 
-#####except ValueError:
+
+###### except ValueError:
 ```python
 except ValueError:
     print("\nInvalid Arguments: %s" % sys.argv[1])
 
 ```
 Genera una impresion de pantalla en caso de un error.
-###### 
-##### except
+
+###### except
 ```python
 except:
     print("\n[!] Use: python3 " + sys.argv[0] + " <code.c> " + " <name_table>.txt " + "<errors>.txt\n")
