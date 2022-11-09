@@ -1,14 +1,20 @@
 #  ANALIZADOR LEXICO
 ![](https://sites.google.com/site/compiladoresesilval/_/rsrc/1468848842177/home/compiladores/analisis-lexico/AnalizadorLexico.jpg)
+
+------------
+
 # Integrantes:
 ## Sanchez Palafox Manuel
 ## Caballero Perdomo Axel Lennyn
 ## Acosta Cortes Gerardo Michel
 ## Castillo Salgado Edgar Sebastian
+## 
+
+------------
 
 
 ## Librerias utilizadas:
-### sys
+- ### sys
 El **módulo** sys en Python proporciona varias funciones y variables que se utilizan para manipular diferentes partes del entorno de tiempo de ejecución de Python. Permite operar sobre el intérprete ya que proporciona acceso a las variables y funciones que interactúan fuertemente con el intérprete. Consideremos el siguiente ejemplo.
 
 ### re
