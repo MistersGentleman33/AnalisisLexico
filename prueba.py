@@ -1,22 +1,24 @@
 import re
+import subprocess
+
+
+def pawk(args):
+    echo = subprocess.run(["echo", args], check=True, capture_output=True)
+    awk = subprocess.run(["python3", "pawk/pawk.py", "-F", " ", "f[0]"], input=echo.stdout, capture_output=True)
+    awk_output = awk.stdout.decode("utf-8").strip()
+    return awk_output
 
 
 def expression():
-    expression = re.compile("(int [a-zA-Z]+ = [0-9]+|float [a-zA-Z]+ = [0-9]+.[0-9]+"
-                            "|double [a-zA-Z]+ = [0-9]+.[0-9]+|char [a-zA-Z]+ = [\"|\'][a-zA-Z]+[\"|\'])")
-    text = """ asdasd s"""
-    text2 = "asdasdasd"
-    expression2 = re.compile("(int [a-zA-Z]+ = [0-9]+|float [a-zA-Z]+ = [0-9]+.[0-9]+"
-                             "|double [a-zA-Z]+ = [0-9]+.[0-9]+|char [a-zA-Z]+ = [\"|\'][a-zA-Z]+[\"|\'])")
+    text = """int a = 10, b = 20"""
+    ex = re.compile(r"int \w+ = [0-9]+|, [a-zA-Z]+ = [0-9]+")
+    output = ex.findall(text)
 
-    lista = expression.findall(text)
-    lista2 = expression2.findall(text)
+    print(output)
 
-    if bool(l:
-        print("esta vacia")
-    else:
-        print("No esta vaia1")
-        print(lista)
+    for i in output:
+        awk_output = pawk(i)
+        print(awk_output)
 
 
 def main():
