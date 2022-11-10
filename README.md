@@ -18,7 +18,9 @@ El análisis léxico-sintáctico tiene por objeto reconocer la forma de las sent
 Reconocer la forma de una sentencia implica reconocer sus lexemas y estructuras sintácticas. El
 resultado del análisis léxico-sintáctico puede ser un error de reconocimiento o una versión de la
 sentencia reconocida en forma de árbol de sintaxis abstracta (asa).
+
 ![](https://sites.google.com/site/compiladoresesilval/_/rsrc/1468848842177/home/compiladores/analisis-lexico/AnalizadorLexico.jpg)
+
 Para reconocer los lexemas de un lenguaje usaremos expresiones regulares y para reconocer
 estructuras sintácticas usaremos gramáticas independientes de contexto (gramática en
 adelante).
@@ -90,7 +92,7 @@ ins_preprocesador_keys = ins_preprocesador.keys()
 	```
 
 ###### Lectura del archivo
-Una vez indicado el diccionario de datos y teniendo en cuenta todos los tokens del programa se crea un archivo para iniciar el formato de tabla 
+Una vez indicado el diccionario de datos y teniendo en cuenta todos los tokens del programa se crea un archivo ***.txt*** para iniciar el formato de tabla 
 ```python
 a = file.read()
 
@@ -101,21 +103,7 @@ with open('tabla.txt', 'w') as file:
 ```
 Esta funcion da el formato de tabla de tokens, el fwrite es para escribir en el archivo y tiene un contador para llenar la tabla respetando espacios y colocando respectivamente dependiendo si es componente lexico, lexema o valor.
 
-###### Def recognize_variables
-```python
-def recognize_variables(file):   
 
-    expression_int = re.compile(r"int \w+ = [0-9]+|, [a-zA-Z]+ = [0-9]+")
-    expression_float = re.compile("float \w+ = [0-9]+.[0-9]+|, [a-zA-Z]+ = [0-9]+.[0-9]+")
-    expression_double = re.compile("double \w+ = [0-9]+.[0-9]+|, [a-zA-Z] = [0-9]+.[0-9]+")
-    expression_char = re.compile("char \*\w+\[[0-9]+] = [\"|\'][a-zA-Z]+[\"|\']"
-                                 "|, [a-zA-Z]+\[[0-9]+] = [\"|\'][a-zA-Z]+[\"\']|char "
-                                 "\w+\[[0-9]+] = [\"|\'][a-zA-Z]+[\"|\']"
-                                 "")
-
-    return expression_int.findall(file), expression_float.findall(file), \
-           expression_double.findall(file), expression_char.findall(file)
-```
 Posteriormente, el programa que querramos leer desde un inicio se separa por lineas y despues por token con la funcion ***.split*** sin tomar en cuenta los espacios para identificarlos en los diccionarios previamente creados.
 ```python
 program = a.split("\n")
@@ -167,12 +155,11 @@ Una vez que el programa leyo token por token el archivo y los identifico por dic
             with open('tabla.txt', 'a') as file:
                 file.write('{:^50}{:^30}{:^30}{:^1}'.format('Palabra reservada', token, palabra_reservada[token],'\n'))
 ```
-
+Para al final dar una tabla con un formato parecido a este en el txt.
+**..........Componente Lexico..........Lexema..........Valor..........**
 
 
 ## Conclusion
 
 ## Bibliografias
-1. [Lib subprocess](https://www.simplilearn.com/tutorials/python-tutorial/subprocess-in-python#:~:text=Subprocess%20in%20Python%20is%20a,can%20use%20subprocess%20in%20Python "1")
-2. [Lib re](https://docs.python.org/3/library/re.html "Lib re")
-3. [Lib sys](https://www.geeksforgeeks.org/python-sys-module/#:~:text=The%20sys%20module%20in%20Python,interact%20strongly%20with%20the%20interpreter. "Lib sys")
+[Analisis lexico y sintactico](http://www.lsi.us.es/docencia/get.php?id=7469 "Analisis lexico y sintactico")
