@@ -1,6 +1,11 @@
 import re
 import subprocess
 
+def read_file():  # Lectura del archivo, cada linea la guarda en una lista
+    with open("codigo2.c") as archivo:
+        archivo = archivo.read()
+
+    return archivo
 
 def pawk(args):
     echo = subprocess.run(["echo", args], check=True, capture_output=True)
@@ -9,23 +14,18 @@ def pawk(args):
     return awk_output
 
 
-def expression():
-    text = """int a = 10, b = 20"""
-    ex = re.compile(r"int \w+ = [0-9]+|, [a-zA-Z]+ = [0-9]+")
-    output = ex.findall(text)
-
-    print(output)
-
-    for i in output:
-        awk_output = pawk(i)
-        print(awk_output)
-
-
 def main():
-    expression()
+    file = read_file()
+    print(file)
+    expression_int = re.compile(
+        r'int \w+, \w.+;|int \w = \w.;+|int \w+, \w+;|(int \w+ = [0-9]+|, \w+ = [0-9]+)| int \w+ = \w+\(\w+\);')
+    expression_float = re.compile("float \w+ = [0-9]+.[0-9]+|, [a-zA-Z]+ = [0-9]+.[0-9]+")
+    expression_double = re.compile("double \w+ = [0-9]+.[0-9]+|, [a-zA-Z] = [0-9]+.[0-9]+")
+    expression_char = re.compile(
+        r'char \*\w+ = (\"|\')\w+(\"|\');')
 
-
-#    file(expression)
+    print(expression_int.findall(file))
+    print(expression_char.findall(file))
 
 
 if __name__ == "__main__":
