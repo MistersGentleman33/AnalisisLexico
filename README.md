@@ -1,5 +1,5 @@
-#  ANALIZADOR LEXICO
-![](https://sites.google.com/site/compiladoresesilval/_/rsrc/1468848842177/home/compiladores/analisis-lexico/AnalizadorLexico.jpg)
+#  ANALIZADOR EN PYTHON
+![](https://2.bp.blogspot.com/-tzQyWIBjg1E/Vva72o0VT1I/AAAAAAAABfs/-l8476gfcxk4Licz7Z_Pbm0UozxcY6M6Q/s1600/Compiladores%2Bde%2Bcodigo%2Bonline.png)
 
 ------------
 
@@ -13,59 +13,91 @@
 ------------
 
 
-## Librerias utilizadas:
-- ### sys
-El **módulo** sys en Python proporciona varias funciones y variables que se utilizan para manipular diferentes partes del entorno de tiempo de ejecución de Python. Permite operar sobre el intérprete ya que proporciona acceso a las variables y funciones que interactúan fuertemente con el intérprete. Consideremos el siguiente ejemplo.
+## Introduccion
+El análisis léxico-sintáctico tiene por objeto reconocer la forma de las sentencias de un lenguaje.
+Reconocer la forma de una sentencia implica reconocer sus lexemas y estructuras sintácticas. El
+resultado del análisis léxico-sintáctico puede ser un error de reconocimiento o una versión de la
+sentencia reconocida en forma de árbol de sintaxis abstracta (asa).
+![](https://sites.google.com/site/compiladoresesilval/_/rsrc/1468848842177/home/compiladores/analisis-lexico/AnalizadorLexico.jpg)
+Para reconocer los lexemas de un lenguaje usaremos expresiones regulares y para reconocer
+estructuras sintácticas usaremos gramáticas independientes de contexto (gramática en
+adelante).
+Una gramática es un conjunto de reglas. Cada regla es de la forma genérica:
 
-- ### re
-Este módulo proporciona operaciones de coincidencia de expresiones regulares similares a las que se encuentran en Perl.
+*cabeza : cuerpo1 | cuerpo2 | ... | cuerpoN siendo N>=1*
 
-Tanto los patrones como las cadenas que se buscarán pueden ser cadenas Unicode ( str), así como cadenas de 8 bits ( bytes). Sin embargo, las cadenas Unicode y las cadenas de 8 bits no se pueden mezclar: es decir, no puede hacer coincidir una cadena Unicode con un patrón de bytes o viceversa; De manera similar, al solicitar una sustitución, la cadena de reemplazo debe ser del mismo tipo que el patrón y la cadena de búsqueda.
-
-Las expresiones regulares utilizan el carácter de barra invertida ( '\') para indicar formas especiales o para permitir el uso de caracteres especiales sin invocar su significado especial. Esto choca con el uso de Python del mismo carácter para el mismo propósito en cadenas literales; por ejemplo, para hacer coincidir una barra invertida literal, es posible que tenga que escribir '\\\\'como cadena de patrón, porque la expresión regular debe ser \\, y cada barra invertida debe expresarse como \\dentro de una cadena literal de Python normal. Además, tenga en cuenta que cualquier secuencia de escape no válida en el uso de Python de la barra invertida en los literales de cadena ahora genera un DeprecationWarning y en el futuro se convertirá en un SyntaxError. Este comportamiento ocurrirá incluso si es una secuencia de escape válida para una expresión regular.
-
-La solución es usar la notación de cadenas sin procesar de Python para patrones de expresiones regulares; las barras invertidas no se manejan de ninguna manera especial en un literal de cadena con el prefijo 'r'. También lo r"\n"es una cadena de dos caracteres que contiene '\'y 'n', mientras que "\n"es una cadena de un carácter que contiene una nueva línea. Por lo general, los patrones se expresarán en código Python utilizando esta notación de cadena sin procesar.
-
-Es importante tener en cuenta que la mayoría de las operaciones con expresiones regulares están disponibles como funciones y métodos a nivel de módulo en expresiones regulares compiladas . Las funciones son atajos que no requieren que primero compiles un objeto regex, pero pierden algunos parámetros de ajuste.
-
-- ### subprocess
-El subproceso en Python es un módulo que se utiliza para ejecutar nuevos códigos y aplicaciones mediante la creación de nuevos procesos. Le permite iniciar nuevas aplicaciones directamente desde el programa de Python que está escribiendo actualmente. Entonces, si desea ejecutar programas externos desde un repositorio de git o códigos de programas C o C++ , puede usar el subproceso en Python. También puede obtener códigos de salida y canalizaciones de entrada, salida o error utilizando el subproceso en Python . 
+La cabeza de la regla es un símbolo llamado no terminal que representa una estructura
+sintáctica. El cuerpo de la regla está compuesto por símbolos terminales (lexemas) y no
+terminales. La composición de estos símbolos se consigue haciendo uso de alternativas,
+iteraciones y yuxtaposiciones.
 
 ## Desarrollo
-- ### Explicacion del codigo
-Primero se colocan las librerias a utilizar, las cuales ya hemos visto en el punto anterior, 
-###### 
-**import sys** se utiliza para dar acceso a las variables y manipularlas durante el tiempo de ejecucion del programa.
-###### 
-**import re** se utiliza para el procesamiento de cadenas y expresiones regulares que mas adelante nos ayudara para el analizador lexico.
-###### 
-**import subprocess** se utiliza para ejecutar nuevos procesos, en este programa se utiliza en la def pawk para ejecutar python3 y pawk.py como subprocesos
-
-###### Def pawk
+#### Explicacion del codigo
+Primero se imprime en pantalla el titulo "Analizador Lexico"
 ```python
-def pawk(args, i):
-    i = str(i)
-    position = "f[" + i + "]"
-    echo = subprocess.run(["echo", args], check=True, capture_output=True)
-    awk = subprocess.run(["python3", "pawk/pawk.py", "-F", " ", position], input=echo.stdout, capture_output=True)
-    awk_output = awk.stdout.decode("utf-8").strip()
-
-    return awk_output
-
+print("Analizador Léxico")
 ```
-Esta funcion sirve para
-
-###### Def write_table
+Seguido de esto tenemos la linea que abre el archivo que querramos leer
 ```python
-def write_table(list_int, list_float, list_double, list_char, table_name):
-    with open(table_name, "w") as file:
-        file.write("\tComponente Lexico\tLexema\tValor\n")
+file = open(r"/home/gmichel/Documentos/codigo3.txt")
+```
 
-    for i in list_int:
-        spaces = i.count(" ")
-        for x in range(spaces + 1):
-            awk_output = pawk(i, x)
-            print(awk_output)
+###### Diccionario de datos
+Se crea un diccionario de datos el cual asigna valores a todos los tokens que se pueden encontrar dentro del archivo que querramos leer como:
+ - Operadores.
+```python
+operadores = {'=':'Asignacion','+':'Adicion','-':'Sustraccion','/':'Division','*':'Multiplicacion','<':'Menor que','>':'Mayor que','++':'incremento','!=':'desigualdad','==':'igualdad'}
+operadores_key = operadores.keys()
+```
+ - Tipos de datos
+```python
+tipo_dato = {'int':'tipo integer','float':'punto flotante','char':'tipo char','long':'long int','void':'tipo vacio'}
+tipo_dato_key = tipo_dato.keys()
+```
+ - Simbolos
+ ```python
+simbolo_puntuacion = {':':'dos puntos',';':'punto y coma','.':'punto',',':'coma','(':'parentesis apertura',')':'parentesis cierre','{':'llave apertura','}':'llave cierre','[':'corchete apertura',']':'corchete cierre'}
+simbolo_puntuacion_key = simbolo_puntuacion.keys()
+```
+ - Identificadores
+```python
+identificador = {'a':'id','b':'id','c':'id','d':'id','e':'id','f':'id','g':'id','h':'id','i':'id','j':'id','k':'id','l':'id','m':'id','n':'id','o':'id','p':'id','q':'id','r':'id','s':'id','t':'id','u':'id','v':'id','w':'id','x':'id','y':'id','z':'id','A':'id','B':'id','C':'id','D':'id','E':'id','F':'id','G':'id','H':'id','I':'id','J':'id','K':'id','L':'id','M':'id','O':'id','P':'id','Q':'id','R':'id','S':'id','T':'id','U':'id','V':'id','W':'id','X':'id','Y':'id','Z':'id','flag':'id'}
+identificador_key = identificador.keys()
+```
+ - Numeros enteros
+```python
+numero_entero = {'0':'cero','1':'uno','2':'dos','3':'tres','4':'cuatro','5':'cinco','6':'seis','7':'siete','8':'ocho','9':'nueve','13':'trece'}
+numero_entero_key = numero_entero.keys()
+```
+
+ - Preprocesadores
+```python
+ins_preprocesador = {'#include':'INCLUDE','define':'DEFINE','<stdio.h>':'libreria'}
+ins_preprocesador_keys = ins_preprocesador.keys()
+```
+ - Palabras reservadas, estructuras selectivas y repetitivas
+
+	```python
+	estructura_selectiva = {'else':'ELSE','if':'IF','switch':'SWITCH','case':'CASE'}
+	estructura_selectiva_key = estructura_selectiva.keys()
+
+	estructura_repetitiva = {'for':'FOR','while':'WHILE','do':'DO'}
+	estructura_repetitiva_key = estructura_repetitiva.keys()
+
+	palabra_reservada = {'return':'RETURN','main':'MAIN','printf':'IMPRIMIR'}
+	palabra_reservada_keys = palabra_reservada.keys()
+
+	```
+
+###### Lectura del archivo
+Una vez indicado el diccionario de datos y teniendo en cuenta todos los tokens del programa se crea un archivo para iniciar el formato de tabla 
+```python
+a = file.read()
+
+count = 0
+
+with open('tabla.txt', 'w') as file:
+    file.write('{:^50}{:^30}{:^40}'.format('Componente Lexico', 'Lexema', 'Valor\n\n'))
 ```
 Esta funcion da el formato de tabla de tokens, el fwrite es para escribir en el archivo y tiene un contador para llenar la tabla respetando espacios y colocando respectivamente dependiendo si es componente lexico, lexema o valor.
 
@@ -84,56 +116,60 @@ def recognize_variables(file):
     return expression_int.findall(file), expression_float.findall(file), \
            expression_double.findall(file), expression_char.findall(file)
 ```
-Esta funcion define las expresiones regulares para cada variable dependiendo del tipo de esta misma como se puede observar para el analizador existen variables int, float, double y char.
-
-###### Def read_file
+Posteriormente, el programa que querramos leer desde un inicio se separa por lineas y despues por token con la funcion ***.split*** sin tomar en cuenta los espacios para identificarlos en los diccionarios previamente creados.
 ```python
-def read_file(input_text):  # Lectura del archivo, cada linea la guarda en una lista
-    with open(input_text) as archivo:
-        archivo = archivo.read()
-
-    return archivo
+program = a.split("\n")
+for line in program:
+    count = count + 1
+    print("line #",count,"\n",line)
+    
+    ##Para leer separamos los tokens con el line split
+    tokens = line.split(' ')
+    print("Los tokens son ",tokens)
 ```
-Esta funcion lee el archivo y guarda cada linea en una lista, como se observa recibe un archivo y genera otro con este mismo ya analizado.
-###### Def main
+Una vez que el programa leyo token por token el archivo y los identifico por diccionarios, se llama a cada uno de estos para escribirlos respectivamente en la tabla de tokens previamente creada.
 ```python
-def main():
-    # Variables Flags
-    input_text = sys.argv[1]
-    table_name = sys.argv[2]
-    # errors = sys.argv[3]
+ print("Line #",count,"Propiedades \n")
+    for token in tokens:
+        if token in operadores_key:
+            with open('tabla.txt', 'a') as file:
+                file.write('{:^50}{:^30}{:^30}{:^1}'.format('operador', token, operadores[token] ,'\n'))
 
-    # Functions
-    file = read_file(input_text)  # Variable que contiene el archivo en string
-    print("Esta es una prueba de lectura de archivo: \n {} \n".format(file))
-    list_int, list_float, list_double, list_char = recognize_variables(file)
-    print(list_int, list_float, list_double, list_char)
-    write_table(list_int, list_float, list_double, list_char, table_name)
+        if token in tipo_dato_key:
+            with open('tabla.txt', 'a') as file:
+                file.write('{:^50}{:^30}{:^30}{:^1}'.format('Tipo de dato', token, tipo_dato[token],'\n'))
 
+        if token in simbolo_puntuacion_key:
+            with open('tabla.txt''', "a") as file:
+                file.write('{:^50}{:^30}{:^30}{:^1}'.format('Simbolo de puntuacion', token, simbolo_puntuacion[token],'\n'))
+
+        if token in identificador_key:
+            with open('tabla.txt', 'a') as file:
+                file.write('{:^50}{:^30}{:^30}{:^1}'.format('Identificador', token, identificador[token],'\n'))
+
+        if token in numero_entero_key:
+            with open('tabla.txt', 'a') as file:
+                file.write('{:^50}{:^30}{:^30}{:^1}'.format('Numero entero', token, numero_entero[token],'\n'))
+
+        if token in estructura_selectiva_key:
+            with open('tabla.txt', 'a') as file:
+                file.write('{:^50}{:^30}{:^30}{:^1}'.format('Estructura selectiva', token, estructura_selectiva[token],'\n'))
+
+        if token in estructura_repetitiva_key:
+            with open('tabla.txt', 'a') as file:
+                file.write('{:^50}{:^30}{:^30}{:^1}'.format('tructura repetitivaEs', token, estructura_repetitiva[token],'\n'))
+
+        if token in ins_preprocesador_keys:
+            with open('tabla.txt', 'a') as file:
+                file.write('{:^50}{:^30}{:^30}{:^1}'.format('Pre-procesador', token, ins_preprocesador[token],'\n'))
+
+        if token in palabra_reservada_keys:
+            with open('tabla.txt', 'a') as file:
+                file.write('{:^50}{:^30}{:^30}{:^1}'.format('Palabra reservada', token, palabra_reservada[token],'\n'))
 ```
-Aqui se inicializan todas las variables, input_text y table_name las iguala para recibir cadenas y las demas variables solo las imprime en la tabla del txt.
 
-###### try:
-```python
-try:
-    if __name__ == "__main__":
-        main()
-```
 
-###### except ValueError:
-```python
-except ValueError:
-    print("\nInvalid Arguments: %s" % sys.argv[1])
 
-```
-Genera una impresion de pantalla en caso de un error.
-
-###### except
-```python
-except:
-    print("\n[!] Use: python3 " + sys.argv[0] + " <code.c> " + " <name_table>.txt " + "<errors>.txt\n")
-```
-Genera una ultima impresion de pantalla independiente para indicar el uso del programa al momento de su compilacion.
 ## Conclusion
 
 ## Bibliografias
