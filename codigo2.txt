@@ -1,42 +1,42 @@
 
 
-#include<stdio.h>
+# include < stdio.h >
 
-#include<string.h>
+# include < string.h >
 
-#define NO_OF_CHARS 256
+# define NO_OF_CHARS 256
 
  
 
-int getNextState(char *pat, int M, int state, int x)
+int getNextState ( char *pat , int M , int state , int x )
 
 {
 
-    if (state < M && x == pat[state])
+    if ( state < M && x == pat[state] )
 
-        return state+1;
+        return state + 1 ;
 
-    int ns, i;
+    int ns , i ;
 
  
 
-    for (ns = state; ns > 0; ns--)
+    for ( ns = state ; ns > 0 ; ns -- )
 
     {
 
-        if (pat[ns-1] == x)
+        if ( pat [ns-1] == x )
 
         {
 
-            for (i = 0; i < ns-1; i++)
+            for ( i = 0 ; i < ns -1 ; i ++ )
 
-                if (pat[i] != pat[state-ns+1+i])
+                if ( pat[ i ] != pat[ state - ns + 1 + i ] )
 
-                    break;
+                    break ;
 
-            if (i == ns-1)
+            if ( i  == ns - 1 )
 
-                return ns;
+                return ns ;
 
         }
 
@@ -44,7 +44,7 @@ int getNextState(char *pat, int M, int state, int x)
 
  
 
-    return 0;
+    return 0 ;
 
 }
 
@@ -52,15 +52,15 @@ int getNextState(char *pat, int M, int state, int x)
 
 
 
-void computeTF(char *pat, int M, int TF[][NO_OF_CHARS])
+void computeTF ( char *pat , int M , int TF [ ] [ NO_OF_CHARS ] )
 
 {
 
-    int state, x;
+    int state , x ;
 
-    for (state = 0; state <= M; ++state)
+    for ( state = 0 ; state <= M ; ++ state )
 
-        for (x = 0; x < NO_OF_CHARS; ++x)
+        for ( x = 0 ; x < NO_OF_CHARS ; ++ x )
 
             TF[state][x] = getNextState(pat, M, state, x);
 
@@ -68,35 +68,35 @@ void computeTF(char *pat, int M, int TF[][NO_OF_CHARS])
 
  
 
-void search(char *pat, char *txt)
+void search ( char *pat , char *txt )
 
 {
 
-    int M = strlen(pat);
+    int M = strlen ( pat ) ;
 
-    int N = strlen(txt); 
+    int N = strlen ( txt ) ; 
 
-    int TF[M+1][NO_OF_CHARS];
-
- 
-
-    computeTF(pat, M, TF);
+    int TF [ M + 1 ] [ NO_OF_CHARS ] ;
 
  
 
-    int i, state=0;
+    computeTF ( pat , M , TF ) ;
 
-    for (i = 0; i < N; i++)
+ 
+
+    int i , state = 0 ;
+
+    for ( i = 0 ; i < N ; i ++ )
 
     {
 
-        state = TF[state][txt[i]];
+        state = TF [ state ] [ txt [ i ] ] ;
 
-        if (state == M)
+        if ( state == M )
 
-            printf ("\n Pattern found at index %d",
+            printf ( "\n Pattern found at index %d " ,
 
-                                           i-M+1);
+                                           i - M + 1 ) ;
 
     }
 
