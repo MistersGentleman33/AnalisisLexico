@@ -18,37 +18,31 @@ def pawk(args, i):
     awk_output = awk.stdout.decode("utf-8").strip()
 
 
-def write_table(list_int, list_float, list_double, list_char, table_name):
+def write_table(list_int, table_name):
     with open(table_name, "w") as file:
         file.write("\tComponente Lexico\tLexema\tValor\n")
-    '''
     for i in list_int:
         spaces = i.count(" ")
+        print(spaces)
         for x in range(spaces + 1):
             awk_output = pawk(i, x)
-            #print(awk_output)'''
+            print(awk_output)
 
 
 def recognize_variables(file):  # Expresiones regulares para cada variable
 
-    expression_int = re.compile(r"(int \w+ = [0-9]+|, [a-zA-Z]+ = [0-9]+)|(int \w+ = \w[^ ]+)|(int \w+, \w.+;)")
-    expression_float = re.compile("float \w+ = [0-9]+.[0-9]+|, [a-zA-Z]+ = [0-9]+.[0-9]+")
-    expression_double = re.compile("double \w+ = [0-9]+.[0-9]+|, [a-zA-Z] = [0-9]+.[0-9]+")
-    expression_char = re.compile("char \*\w+\[[0-9]+] = [\"|\'][a-zA-Z]+[\"|\']"
-                                 "|, [a-zA-Z]+\[[0-9]+] = [\"|\'][a-zA-Z]+[\"\']|char "
-                                 "\w+\[[0-9]+] = [\"|\'][a-zA-Z]+[\"|\']"
-                                 "")
+    pattern_int = r'int \w+, \w.+;|int \w = \w.;+|int \w+, \w+;|int \w+ = [0-9]+|, \w+ = [0-9]+|int \w+ = \w+\(' \
+                  r'\w+\);|int \w.+; '
+    pattern_float = r'float \w+ = [0-9]+.[0-9]+|, [a-zA-Z]+ = [0-9]+.[0-9]+"'
+    pattern_double = r'double \w+ = [0-9]+.[0-9]+|, [a-zA-Z] = [0-9]+.[0-9]+'
+    pattern_char = r'char [*]\w+ = ["\']\w+["\'];|char [*]\w+ = ["\']\w+["\'];|char \w+\[\] = {.+}|char \w+\[[0-9]+\] ' \
+                   r'= ["\']\w+["\']; '
 
-    expression_int = expression_int.findall(file)
-    expression_float = expression_float.findall(file)
-    expression_double = expression_double.findall(file)
-    expression_char = expression_char.findall(file)
+    expression_int = re.findall(pattern_int, file)
+    expression_float = re.findall(pattern_float, file)
+    expression_double = re.findall(pattern_double, file)
+    expression_char = re.findall(pattern_char, file)
 
-    expression_int.remove(" ")
-    expression_char.remove(" ")
-    expression_double.remove(" ")
-    expression_float.remove(" ")
-    print(expression_int)
     return expression_int, expression_float, expression_double, expression_char
 
 def read_file(input_text):  # Lectura del archivo, cada linea la guarda en una lista
@@ -65,7 +59,6 @@ def main():
     # errors = sys.argv[3]
 
     # Functions
-
     file = read_file(input_text)  # Variable que contiene el archivo en string
 
     # print("Esta es una prueba de lectura de archivo: \n {} \n".format(file))
@@ -74,11 +67,10 @@ def main():
     # los tokens encontrados para tipos de variables
 
     '''Variables que contienen los tokens para las funciones void e int'''
-    list_f_int, list_f_void = recognize_functions(file)
-    # print(list_f_int, list_f_void)
-
-    print(list_int, list_float, list_double, list_char)
-    write_table(list_int, list_float, list_double, list_char, table_name)  # Funcion que escribe la tabla de simbolos
+    # list_f_int, list_f_void = recognize_functions(file)
+    # print(list_f_int, list_f_void))
+    print(list_int)
+    write_table(list_int, table_name)  # Funcion que escribe la tabla de simbolos
 
 
 try:
