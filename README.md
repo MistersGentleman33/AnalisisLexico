@@ -92,14 +92,15 @@ ins_preprocesador_keys = ins_preprocesador.keys()
 	```
 
 ###### Lectura del archivo
-Una vez indicado el diccionario de datos y teniendo en cuenta todos los tokens del programa se crea un archivo ***.txt*** para iniciar el formato de tabla 
+Una vez indicado el diccionario de datos y teniendo en cuenta todos los tokens del programa se crea un archivo ***.txt*** para iniciar el formato de tabla
+
 ```python
 a = file.read()
 
 count = 0
 
-with open('tabla.txt', 'w') as file:
-    file.write('{:^50}{:^30}{:^40}'.format('Componente Lexico', 'Lexema', 'Valor\n\n'))
+with open('table_nam', 'w') as file:
+	file.write('{:^50}{:^30}{:^40}'.format('Componente Lexico', 'Lexema', 'Valor\n\n'))
 ```
 Esta funcion da el formato de tabla de tokens, el fwrite es para escribir en el archivo y tiene un contador para llenar la tabla respetando espacios y colocando respectivamente dependiendo si es componente lexico, lexema o valor.
 
@@ -116,44 +117,48 @@ for line in program:
     print("Los tokens son ",tokens)
 ```
 Una vez que el programa leyo token por token el archivo y los identifico por diccionarios, se llama a cada uno de estos para escribirlos respectivamente en la tabla de tokens previamente creada.
+
 ```python
- print("Line #",count,"Propiedades \n")
-    for token in tokens:
-        if token in operadores_key:
-            with open('tabla.txt', 'a') as file:
-                file.write('{:^50}{:^30}{:^30}{:^1}'.format('operador', token, operadores[token] ,'\n'))
+ print("Line #", count, "Propiedades \n")
+for token in tokens:
+	if token in operadores_key:
+		with open('table_nam', 'a') as file:
+			file.write('{:^50}{:^30}{:^30}{:^1}'.format('operador', token, operadores[token], '\n'))
 
-        if token in tipo_dato_key:
-            with open('tabla.txt', 'a') as file:
-                file.write('{:^50}{:^30}{:^30}{:^1}'.format('Tipo de dato', token, tipo_dato[token],'\n'))
+	if token in tipo_dato_key:
+		with open('table_nam', 'a') as file:
+			file.write('{:^50}{:^30}{:^30}{:^1}'.format('Tipo de dato', token, tipo_dato[token], '\n'))
 
-        if token in simbolo_puntuacion_key:
-            with open('tabla.txt''', "a") as file:
-                file.write('{:^50}{:^30}{:^30}{:^1}'.format('Simbolo de puntuacion', token, simbolo_puntuacion[token],'\n'))
+	if token in simbolo_puntuacion_key:
+		with open('table_nam''', "a") as file:
+			file.write(
+				'{:^50}{:^30}{:^30}{:^1}'.format('Simbolo de puntuacion', token, simbolo_puntuacion[token], '\n'))
 
-        if token in identificador_key:
-            with open('tabla.txt', 'a') as file:
-                file.write('{:^50}{:^30}{:^30}{:^1}'.format('Identificador', token, identificador[token],'\n'))
+	if token in identificador_key:
+		with open('table_nam', 'a') as file:
+			file.write('{:^50}{:^30}{:^30}{:^1}'.format('Identificador', token, identificador[token], '\n'))
 
-        if token in numero_entero_key:
-            with open('tabla.txt', 'a') as file:
-                file.write('{:^50}{:^30}{:^30}{:^1}'.format('Numero entero', token, numero_entero[token],'\n'))
+	if token in numero_entero_key:
+		with open('table_nam', 'a') as file:
+			file.write('{:^50}{:^30}{:^30}{:^1}'.format('Numero entero', token, numero_entero[token], '\n'))
 
-        if token in estructura_selectiva_key:
-            with open('tabla.txt', 'a') as file:
-                file.write('{:^50}{:^30}{:^30}{:^1}'.format('Estructura selectiva', token, estructura_selectiva[token],'\n'))
+	if token in estructura_selectiva_key:
+		with open('table_nam', 'a') as file:
+			file.write(
+				'{:^50}{:^30}{:^30}{:^1}'.format('Estructura selectiva', token, estructura_selectiva[token], '\n'))
 
-        if token in estructura_repetitiva_key:
-            with open('tabla.txt', 'a') as file:
-                file.write('{:^50}{:^30}{:^30}{:^1}'.format('tructura repetitivaEs', token, estructura_repetitiva[token],'\n'))
+	if token in estructura_repetitiva_key:
+		with open('table_nam', 'a') as file:
+			file.write(
+				'{:^50}{:^30}{:^30}{:^1}'.format('tructura repetitivaEs', token, estructura_repetitiva[token], '\n'))
 
-        if token in ins_preprocesador_keys:
-            with open('tabla.txt', 'a') as file:
-                file.write('{:^50}{:^30}{:^30}{:^1}'.format('Pre-procesador', token, ins_preprocesador[token],'\n'))
+	if token in ins_preprocesador_keys:
+		with open('table_nam', 'a') as file:
+			file.write('{:^50}{:^30}{:^30}{:^1}'.format('Pre-procesador', token, ins_preprocesador[token], '\n'))
 
-        if token in palabra_reservada_keys:
-            with open('tabla.txt', 'a') as file:
-                file.write('{:^50}{:^30}{:^30}{:^1}'.format('Palabra reservada', token, palabra_reservada[token],'\n'))
+	if token in palabra_reservada_keys:
+		with open('table_nam', 'a') as file:
+			file.write('{:^50}{:^30}{:^30}{:^1}'.format('Palabra reservada', token, palabra_reservada[token], '\n'))
 ```
 Para al final dar una tabla con un formato parecido a este en el txt.
 **..........Componente Lexico..........Lexema..........Valor..........**

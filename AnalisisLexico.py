@@ -3,74 +3,102 @@ import re
 import subprocess
 
 
-def recognize_functions(file):  # Funcion para reconocer funciones void e int
-    expression_F_int = re.compile(r"int \w+\(+\)|int \w+\(.+\)")
-    expression_F_void = re.compile(r"void \w+\(+\)|void \w+\(.+\)")
-
-    return expression_F_int.findall(file), expression_F_void.findall(file)
-
-
-def pawk(args, i):
-    i = str(i)
-    position = "f[" + i + "]"
-    echo = subprocess.run(["echo", args], check=True, capture_output=True)
-    awk = subprocess.run(["python3", "pawk/pawk.py", "-F", " ", position], input=echo.stdout, capture_output=True)
-    awk_output = awk.stdout.decode("utf-8").strip()
-
-
-def write_table(list_int, table_name):
-    with open(table_name, "w") as file:
-        file.write("\tComponente Lexico\tLexema\tValor\n")
-    for i in list_int:
-        spaces = i.count(" ")
-        print(spaces)
-        for x in range(spaces + 1):
-            awk_output = pawk(i, x)
-            print(awk_output)
-
-
-def recognize_variables(file):  # Expresiones regulares para cada variable
-
-    pattern_int = r'int \w+, \w.+;|int \w = \w.;+|int \w+, \w+;|int \w+ = [0-9]+|, \w+ = [0-9]+|int \w+ = \w+\(' \
-                  r'\w+\);|int \w.+; '
-    pattern_float = r'float \w+ = [0-9]+.[0-9]+|, [a-zA-Z]+ = [0-9]+.[0-9]+"'
-    pattern_double = r'double \w+ = [0-9]+.[0-9]+|, [a-zA-Z] = [0-9]+.[0-9]+'
-    pattern_char = r'char [*]\w+ = ["\']\w+["\'];|char [*]\w+ = ["\']\w+["\'];|char \w+\[\] = {.+}|char \w+\[[0-9]+\] ' \
-                   r'= ["\']\w+["\']; '
-
-    expression_int = re.findall(pattern_int, file)
-    expression_float = re.findall(pattern_float, file)
-    expression_double = re.findall(pattern_double, file)
-    expression_char = re.findall(pattern_char, file)
-
-    return expression_int, expression_float, expression_double, expression_char
-
-def read_file(input_text):  # Lectura del archivo, cada linea la guarda en una lista
-    with open(input_text) as archivo:
-        archivo = archivo.read()
-
-    return archivo
-
-
 def main():
-    # Variables Flags
     input_text = sys.argv[1]
     table_name = sys.argv[2]
-    # errors = sys.argv[3]
+    print("Analizador Léxico")
 
-    # Functions
-    file = read_file(input_text)  # Variable que contiene el archivo en string
+    ##Declaramos file para abrir y leer archivo
+    #   print(input_text)
 
-    # print("Esta es una prueba de lectura de archivo: \n {} \n".format(file))
+    file = open(input_text)
 
-    list_int, list_float, list_double, list_char = recognize_variables(file)  # Variables con listas que contienen
-    # los tokens encontrados para tipos de variables
+    ##Diccionarios de datos
+    operadores = {'=':'Asignacion','+':'Adicion','-':'Sustraccion','/':'Division','*':'Multiplicacion','<':'Menor que','>':'Mayor que','++':'incremento','!=':'desigualdad','==':'igualdad'}
+    operadores_key = operadores.keys()
 
-    '''Variables que contienen los tokens para las funciones void e int'''
-    # list_f_int, list_f_void = recognize_functions(file)
-    # print(list_f_int, list_f_void))
-    print(list_int)
-    write_table(list_int, table_name)  # Funcion que escribe la tabla de simbolos
+    tipo_dato = {'int':'tipo integer','float':'punto flotante','char':'tipo char','long':'long int','void':'tipo vacio'}
+    tipo_dato_key = tipo_dato.keys()
+
+    simbolo_puntuacion = {':':'dos puntos',';':'punto y coma','.':'punto',',':'coma','(':'parentesis apertura',')':'parentesis cierre','{':'llave apertura','}':'llave cierre','[':'corchete apertura',']':'corchete cierre'}
+    simbolo_puntuacion_key = simbolo_puntuacion.keys()
+
+    identificador = {'a':'id','b':'id','c':'id','d':'id','e':'id','f':'id','g':'id','h':'id','i':'id','j':'id','k':'id','l':'id','m':'id','n':'id','o':'id','p':'id','q':'id','r':'id','s':'id','t':'id','u':'id','v':'id','w':'id','x':'id','y':'id','z':'id','A':'id','B':'id','C':'id','D':'id','E':'id','F':'id','G':'id','H':'id','I':'id','J':'id','K':'id','L':'id','M':'id','O':'id','P':'id','Q':'id','R':'id','S':'id','T':'id','U':'id','V':'id','W':'id','X':'id','Y':'id','Z':'id','flag':'id'}
+    identificador_key = identificador.keys()
+
+    numero_entero = {'0':'cero','1':'uno','2':'dos','3':'tres','4':'cuatro','5':'cinco','6':'seis','7':'siete','8':'ocho','9':'nueve','13':'trece'}
+    numero_entero_key = numero_entero.keys()
+
+    estructura_selectiva = {'else':'ELSE','if':'IF','switch':'SWITCH','case':'CASE'}
+    estructura_selectiva_key = estructura_selectiva.keys()
+
+    estructura_repetitiva = {'for':'FOR','while':'WHILE','do':'DO'}
+    estructura_repetitiva_key = estructura_repetitiva.keys()
+
+    ins_preprocesador = {'#include':'INCLUDE','define':'DEFINE','<stdio.h>':'libreria'}
+    ins_preprocesador_keys = ins_preprocesador.keys()
+
+    palabra_reservada = {'return':'RETURN','main':'MAIN','printf':'IMPRIMIR'}
+    palabra_reservada_keys = palabra_reservada.keys()
+
+    ##Leer el archivo
+    a = file.read()
+
+    count = 0
+
+    with open(table_name, 'w') as file:
+        file.write('{:^50}{:^30}{:^40}'.format('Componente Lexico', 'Lexema', 'Valor\n\n'))
+
+    program = a.split("\n")
+    for line in program:
+        count = count + 1
+        print("line #",count,"\n",line)
+
+        ##Para leer separamos los tokens con el line split
+        tokens = line.split(' ')
+        print("Los tokens son ",tokens)
+
+        print("Line #",count,"Propiedades \n")
+        for token in tokens:
+            if token in operadores_key:
+                with open(table_name, 'a') as file:
+                    file.write('{:^50}{:^30}{:^30}{:^1}'.format('operador', token, operadores[token] ,'\n'))
+
+            if token in tipo_dato_key:
+                with open(table_name, 'a') as file:
+                    file.write('{:^50}{:^30}{:^30}{:^1}'.format('Tipo de dato', token, tipo_dato[token],'\n'))
+
+            if token in simbolo_puntuacion_key:
+                with open(table_name, "a") as file:
+                    file.write('{:^50}{:^30}{:^30}{:^1}'.format('Simbolo de puntuacion', token, simbolo_puntuacion[token],'\n'))
+
+            if token in identificador_key:
+                with open(table_name, 'a') as file:
+                    file.write('{:^50}{:^30}{:^30}{:^1}'.format('Identificador', token, identificador[token],'\n'))
+
+            if token in numero_entero_key:
+                with open(table_name, 'a') as file:
+                    file.write('{:^50}{:^30}{:^30}{:^1}'.format('Numero entero', token, numero_entero[token],'\n'))
+
+            if token in estructura_selectiva_key:
+                with open(table_name, 'a') as file:
+                    file.write('{:^50}{:^30}{:^30}{:^1}'.format('Estructura selectiva', token, estructura_selectiva[token],'\n'))
+
+            if token in estructura_repetitiva_key:
+                with open(table_name, 'a') as file:
+                    file.write('{:^50}{:^30}{:^30}{:^1}'.format('tructura repetitivaEs', token, estructura_repetitiva[token],'\n'))
+
+            if token in ins_preprocesador_keys:
+                with open(table_name, 'a') as file:
+                    file.write('{:^50}{:^30}{:^30}{:^1}'.format('Pre-procesador', token, ins_preprocesador[token],'\n'))
+
+            if token in palabra_reservada_keys:
+                with open(table_name, 'a') as file:
+                    file.write('{:^50}{:^30}{:^30}{:^1}'.format('Palabra reservada', token, palabra_reservada[token],'\n'))
+
+            #if token not in palabra_reservada_keys or ins_preprocesador_keys or estructura_repetitiva_key or estructura_selectiva_key or numero_entero_key or identificador_key or simbolo_puntuacion_key or tipo_dato_key or operadores_key:
+              #  print(" Error en line #",count,token,"\n")
+        print("- - - - - - - - - - - - - - - - - - - -")
 
 
 try:
@@ -78,4 +106,11 @@ try:
         main()
 
 except ValueError:
-    print("\n[!] Use: python3 " + sys.argv[0] + " <code.c> " + " <name_table>.txt " + "<errors>.txt\n")
+    #if len(sys.argv) != 2:
+        print('Argumentos invalidos' % sys.argv[2])
+        sys.exit(1)
+    #else:
+    #    pass
+except:
+    print("\n\t***** FATAL ERROR *******\n")
+    print("\n[!] Use: python3 " + sys.argv[0] + " <codigo.txt> " + "<nombre_tabla.txt>\n")
