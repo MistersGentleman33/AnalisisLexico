@@ -167,6 +167,7 @@ Para al final dar una tabla con un formato parecido a este en el txt.
 Se realizaron los automatas para definir cada token y las funciones, de igual manera se realizaron las expresiones regulares:
 ###### Para un *for*
 ![](https://raw.githubusercontent.com/MistersGentleman33/AnalisisLexico/main/AutomataFor.png)
+
 La expresion regular para este automata es:
 ```c
 ER= for( ((id = (id| (1-9)+)) ; (id op (id| (1-9)+) | ; (id 9++))
@@ -174,12 +175,14 @@ ER= for( ((id = (id| (1-9)+)) ; (id op (id| (1-9)+) | ; (id 9++))
 
 ###### Para un *Tipo de Dato*
 ![](https://raw.githubusercontent.com/MistersGentleman33/AnalisisLexico/main/AutomataTipoDato.png)
+
 La expresion regular para este automata es:
 ```c
 ER= tipo de dato * ?(A-Z a-z 0-9)+ = ?(A-Z a-z 0-9)*( , | ; | ( | ) | { ) ?)+
 ```
 ###### Para un *Printf(*
 ![](https://raw.githubusercontent.com/MistersGentleman33/AnalisisLexico/main/AutomataPrint.png)
+
 Tomando en cuenta que el lenguaje ∑ es:
     ∑= lenguaje = {A-Z, a-z, 1-9, { }, ( ), "", simbolos }
 
@@ -189,6 +192,7 @@ Printf((,?ID,? |"(a-z)+")+)
 ```
 ###### Para una llamar una libreria
 ![](https://raw.githubusercontent.com/MistersGentleman33/AnalisisLexico/main/AutomataLib.png)
+
 Tomando en cuenta que el lenguaje ∑ es:
    ∑= lenguaje = {A-Z, a-z, 1-9, simbolos }
 
@@ -198,6 +202,7 @@ ER= # ( ( include < libreria .h >) | define ( ∑)+ ) )
 ```
 ###### Para un *if*
 ![](https://raw.githubusercontent.com/MistersGentleman33/AnalisisLexico/main/AutomataIf.png)
+
 La expresion regular para este automata es:
 ```c
 if((id op (id|valor))+ (&&| II ) ?)+
