@@ -166,5 +166,7 @@ Para al final dar una tabla con un formato parecido a este en el txt.
 
 ## Conclusion
 
+Acosta Cortes Gerardo Michel: Con la realización de la práctica pude comprender mejor el funcionamiento de un analizador tanto léxico cómo sintáctico, se puede ver cómo no es algo vanal ya que se requiere ciertos conocimientos de lenguajes de programación y sobretodo el uso de autómatas para hacer un programa eficiente, es muy importante que al menos en lo teórico esto se comprenda al 100, para poder ver el funcionamiento de un compilador de manera más completa.
+
 ## Bibliografias
 [Analisis lexico y sintactico](http://www.lsi.us.es/docencia/get.php?id=7469 "Analisis lexico y sintactico")
