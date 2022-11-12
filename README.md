@@ -217,7 +217,9 @@ las máquinas autómatas son un realidad con muchas de las cuales interactuamos 
 contribuyen en hacer la vida mucho más sencilla en algunas actividades.
 En el caso de esta practica nos facilita el realizar los diferentes Análisis que se llevan a cabo en un compilador, mediante una expresión regular con la cual armamos los diferentes automatas para la obtencion de errores en el codigo.
 
-**Sanchez Palafox Manuel**
+**Sanchez Palafox Manuel:** Para analizar  texto, los analizadores suelen utilizar un analizador léxico independiente (llamado lexer) que divide los datos de entrada en caracteres (símbolos de entrada, como palabras). Los Lexers suelen ser máquinas restringidas que siguen una gramática regular y, por lo tanto, garantizan un análisis correcto. Los identificadores así obtenidos  sirven como tokens de entrada para el analizador.
+En esta practica se comprendio mas el como funciona un analizador lexico y sintactico, trabajan en conjunto para mostrar cierto tipo de errores en un programa, ademas se aprendio correctamente el tipo de tokens que pueden existir en un programa, esto nos ayuda a entender mas el como funciona un compilador y por que es tan imporatnte al momento de ejecutar un programa.
+Los automatas y expresiones regulares para las funciones y tipos de datos son muy importantes ya que ayudan a la comprension de 
 
 **Caballero Perdomo Axel Lennyn**
 Como conclusión puedo decir que el desarrollar esta practica nos permitio conocer a profundidad todo el trabajo que realiza nuestro compilador o interprete, en caso de lenguajes como Python, una vez que lo programas te da un pequeño panorama de como realiza su trabajo el compilador, la parte más difícil de esta práctica fue identificar los errores sintácticos ya que como humano es fácil reconocerlos si sabes la gramática y semántica del lenguaje de programación, pero una maquina no entiende el contexto, para ella son 1's y 0's, negro o blanco no hay grises, por lo que fue para nosotros dificl hacer que entienda que era un error y que no.
