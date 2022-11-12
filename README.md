@@ -163,10 +163,59 @@ for token in tokens:
 Para al final dar una tabla con un formato parecido a este en el txt.
 **..........Componente Lexico..........Lexema..........Valor..........**
 
+###### Lectura del archivo
+Se realizaron los automatas para definir cada token y las funciones, de igual manera se realizaron las expresiones regulares:
+###### Para un *for*
+![](https://raw.githubusercontent.com/MistersGentleman33/AnalisisLexico/main/AutomataFor.png)
+La expresion regular para este automata es:
+```c
+ER= for( ((id = (id| (1-9)+)) ; (id op (id| (1-9)+) | ; (id 9++))
+```
+
+###### Para un *Tipo de Dato*
+![](https://raw.githubusercontent.com/MistersGentleman33/AnalisisLexico/main/AutomataTipoDato.png)
+La expresion regular para este automata es:
+```c
+ER= tipo de dato * ?(A-Z a-z 0-9)+ = ?(A-Z a-z 0-9)*( , | ; | ( | ) | { ) ?)+
+```
+###### Para un *Printf(*
+![](https://raw.githubusercontent.com/MistersGentleman33/AnalisisLexico/main/AutomataPrint.png)
+Tomando en cuenta que el lenguaje ∑ es:
+    ∑= lenguaje = {A-Z, a-z, 1-9, { }, ( ), "", simbolos }
+
+La expresion regular para este automata es:
+```c
+Printf((,?ID,? |"(a-z)+")+)
+```
+###### Para una llamar una libreria
+![](https://raw.githubusercontent.com/MistersGentleman33/AnalisisLexico/main/AutomataLib.png)
+Tomando en cuenta que el lenguaje ∑ es:
+   ∑= lenguaje = {A-Z, a-z, 1-9, simbolos }
+
+La expresion regular para este automata es:
+```c
+ER= # ( ( include < libreria .h >) | define ( ∑)+ ) )
+```
+###### Para un *if*
+![](https://raw.githubusercontent.com/MistersGentleman33/AnalisisLexico/main/AutomataIf.png)
+La expresion regular para este automata es:
+```c
+if((id op (id|valor))+ (&&| II ) ?)+
+```
 
 ## Conclusion
 
-Acosta Cortes Gerardo Michel: Con la realización de la práctica pude comprender mejor el funcionamiento de un analizador tanto léxico cómo sintáctico, se puede ver cómo no es algo vanal ya que se requiere ciertos conocimientos de lenguajes de programación y sobretodo el uso de autómatas para hacer un programa eficiente, es muy importante que al menos en lo teórico esto se comprenda al 100, para poder ver el funcionamiento de un compilador de manera más completa.
+**Acosta Cortes Gerardo Michel:** Con la realización de la práctica pude comprender mejor el funcionamiento de un analizador tanto léxico cómo sintáctico, se puede ver cómo no es algo vanal ya que se requiere ciertos conocimientos de lenguajes de programación y sobretodo el uso de autómatas para hacer un programa eficiente, es muy importante que al menos en lo teórico esto se comprenda al 100, para poder ver el funcionamiento de un compilador de manera más completa.
+
+**Castillo Salgado Edgar Sebastian:** Hoy en dia, gracias a raiz del increible avance de las nuevas tecnologias y la ciencia,
+las máquinas autómatas son un realidad con muchas de las cuales interactuamos a diario y que
+contribuyen en hacer la vida mucho más sencilla en algunas actividades.
+En el caso de esta practica nos facilita el realizar los diferentes Análisis que se llevan a cabo en un compilador, mediante una expresión regular con la cual armamos los diferentes automatas para la obtencion de errores en el codigo.
+
+**Sanchez Palafox Manuel**
+
+**Caballero Perdomo Axel Lennyn**
+Como conclusión puedo decir que el desarrollar esta practica nos permitio conocer a profundidad todo el trabajo que realiza nuestro compilador o interprete, en caso de lenguajes como Python, una vez que lo programas te da un pequeño panorama de como realiza su trabajo el compilador, la parte más difícil de esta práctica fue identificar los errores sintácticos ya que como humano es fácil reconocerlos si sabes la gramática y semántica del lenguaje de programación, pero una maquina no entiende el contexto, para ella son 1's y 0's, negro o blanco no hay grises, por lo que fue para nosotros dificl hacer que entienda que era un error y que no.
 
 ## Bibliografias
 [Analisis lexico y sintactico](http://www.lsi.us.es/docencia/get.php?id=7469 "Analisis lexico y sintactico")
